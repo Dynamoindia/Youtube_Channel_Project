@@ -1,5 +1,6 @@
 from selenium import webdriver
 from bs4 import BeautifulSoup
+import json
 
 urls =[
     'krishnaik06'
@@ -12,11 +13,11 @@ def watch():
     soup = BeautifulSoup(content, 'lxml')
     titles = soup.find_all('a', id='video-title')
     player_urls = soup.find_all('a',id='video-title')
-    i=0
-    for title in titles[:10]:
-        return "https://www.youtube.com{}".format(player_urls[i].get('href'))
-        i+=1
 
+    for title in titles[:10]:
+        i = 0
+        return "\thttps://www.youtube.com{}".format(player_urls[i].get('href'))
+        i+=1
 def likes_comments():
     driver = webdriver.Chrome()
     driver.get(watch())
@@ -25,7 +26,7 @@ def likes_comments():
     likes= soup.find_all('yt-formatted-string', id='text')
 
     for like in likes:
-        print(like)
+        print(like.text)
 
 watch()
 likes_comments()
